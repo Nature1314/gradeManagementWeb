@@ -1,4 +1,4 @@
-package com.fdmgroup.gradeManagementWeb;
+package com.fdmgroup.gradeManagementWeb.servlet;
 
 import java.io.IOException;
 
@@ -14,7 +14,7 @@ public class LoginServlet extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	
-		RequestDispatcher rd =req.getRequestDispatcher("login.jsp");
+		RequestDispatcher rd =req.getRequestDispatcher("index.jsp");
 		rd.forward(req, resp);
 		
 	}
