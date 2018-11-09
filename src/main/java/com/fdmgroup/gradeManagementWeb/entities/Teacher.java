@@ -1,4 +1,4 @@
-package com.fdmgroup.gradeManagementWeb.origin;
+package com.fdmgroup.gradeManagementWeb.entities;
 
 
 import javax.persistence.Entity;
@@ -17,7 +17,7 @@ public class Teacher {
 	private int idNumber;
 	private String firstName;
 	private String lastName;
-	private int password;
+	private String password;
 	@ManyToOne
 	@JoinColumn(name = "Course_I_teach")
 	private Course course;
@@ -26,7 +26,7 @@ public class Teacher {
 		super();
 	}
 
-	public Teacher(String firstName, String lastName, int password) {
+	public Teacher(String firstName, String lastName, String password) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -57,17 +57,12 @@ public class Teacher {
 		this.lastName = lastName;
 	}
 
-	public int getPassword() {
+	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(int password) {
+	public void setPassword(String password) {
 		this.password = password;
-	}
-	
-	@Override
-	public String toString() {
-		return "Teacher " + firstName + "." + lastName +"'s id number is "+idNumber;
 	}
 	
 }

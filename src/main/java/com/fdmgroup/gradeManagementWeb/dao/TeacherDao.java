@@ -1,10 +1,13 @@
-package com.fdmgroup.gradeManagementWeb.daoFile;
+package com.fdmgroup.gradeManagementWeb.dao;
+
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 
-import com.fdmgroup.gradeManagementWeb.origin.Teacher;
+import com.fdmgroup.gradeManagementWeb.entities.Teacher;
 
 
 
@@ -26,15 +29,16 @@ public class TeacherDao {
 		em.close();
 	}
 	
-	public int getPassword(int idNumber) {
+	
+	public String getPassword(int idNumber) {
 		EntityManager em =emf.createEntityManager();
 		Teacher teacher =em.find(Teacher.class, idNumber);
-		int password = teacher.getPassword();
+		String password = teacher.getPassword();
 		em.close();	
 		return password;
 	}
 	
-	public void updatePassword(int idNumber, int newPassword) {
+	public void updatePassword(int idNumber, String newPassword) {
 		EntityManager em =emf.createEntityManager();
 		Teacher teacher =em.find(Teacher.class, idNumber);
 		EntityTransaction et = em.getTransaction();
@@ -71,5 +75,28 @@ public class TeacherDao {
 		em.close();
 		return teacher;	
 	} 
+	
+	public List<Teacher> searchTeacher(String firstName, String lastName){
+		EntityManager em =emf.createEntityManager();
+		Query query = null;
+		if(firstName!=null&&lastName!=null) {
+			query =em.createQuery("SELECT s FROM Teacher s WHERE s.firstName = :firstName AND s.lastName = :lastName ", 
+					Teacher.class);
+			query.setParameter("firstName", firstName);
+			query.setParameter("lastName", lastName);
+		}else if (firstName!=null && lastName== null) {
+			query=em.createQuery("SELECT s FROM Teacher s WHERE s.firstName = :firstName ", 
+					Teacher.class);
+			query.setParameter("firstName", firstName);
+		}else if(firstName==null && lastName != null) {
+			query=em.createQuery("SELECT s FROM Teacher s WHERE s.lastName = :lastName ", 
+					Teacher.class);
+			query.setParameter("lastName", lastName);
+		}else {
+			System.out.println("No input");
+		}
+		List<Teacher> teacher = query.getResultList();
+		return teacher;	
+	}
 	
 }
