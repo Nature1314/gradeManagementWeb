@@ -2,6 +2,7 @@ package com.fdmgroup.gradeManagementWeb.servlet;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -37,19 +38,26 @@ public class AdministratorServlet extends HttpServlet{
 		String password = req.getParameter("password");
 		
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("grade_jpa");
-		
-		
 		RequestDispatcher rd = null;
-		if(state1.equals("student")) {
-			Student student = new Student(firstName1,lastName1,password);
-			StudentDao sDao = new StudentDao(emf);
-			sDao.addItem(student);
-			
-		}else if(state1.equals("teacher")){
-			Teacher teacher = new Teacher(firstName1,lastName1,password);
-			TeacherDao sDao = new TeacherDao(emf);
-			sDao.addItem(teacher);
-			
+		
+		if(password==null) {
+			Random r = new Random();
+			int randomInt = r.nextInt(1000);
+			password = Integer.toString(randomInt);
+		}
+		
+		if(firstName1!=null && lastName1!=null) {
+			if(state1.equals("student")) {
+				Student student = new Student(firstName1,lastName1,password);
+				StudentDao sDao = new StudentDao(emf);
+				sDao.addItem(student);
+				
+			}else if(state1.equals("teacher")){
+				Teacher teacher = new Teacher(firstName1,lastName1,password);
+				TeacherDao sDao = new TeacherDao(emf);
+				sDao.addItem(teacher);
+				
+			}
 		}
 		
 		String state2 = req.getParameter("status2");
