@@ -40,7 +40,7 @@ public class AdministratorServlet extends HttpServlet{
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("grade_jpa");
 		RequestDispatcher rd = null;
 		
-		if(password==null) {
+		if(password.length()==0) {
 			Random r = new Random();
 			int randomInt = r.nextInt(1000);
 			password = Integer.toString(randomInt);
