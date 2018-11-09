@@ -1,6 +1,6 @@
 package com.fdmgroup.gradeManagementWeb.factories;
 
-import com.fdmgroup.gradeManagementWeb.origin.GradeID;
+import com.fdmgroup.gradeManagementWeb.entities.GradeID;
 
 public class GradeIdFactory {
 

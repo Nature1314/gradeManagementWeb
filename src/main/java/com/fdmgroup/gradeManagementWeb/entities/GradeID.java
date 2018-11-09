@@ -1,11 +1,13 @@
-package com.fdmgroup.gradeManagementWeb.origin;
+package com.fdmgroup.gradeManagementWeb.entities;
+
+import java.io.Serializable;
 
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Embeddable
-public class GradeID {
+public class GradeID implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "course_name")
 	private Course course;
@@ -13,20 +15,15 @@ public class GradeID {
 	@JoinColumn(name = "student_ID")
 	private Student student;
 
-	
-	
-	
 	public GradeID() {
 		super();
 	}
-
 
 	public GradeID(Course course, Student student) {
 		this.course = course;
 		this.student = student;
 	}
-	
-	
+
 	public Course getCourse() {
 		return course;
 	}
@@ -42,6 +39,5 @@ public class GradeID {
 	public void setStudent(Student student) {
 		this.student = student;
 	}
-	
-	 
+
 }
