@@ -1,4 +1,4 @@
-package com.fdmgroup.gradeManagementWeb.daoFile;
+package com.fdmgroup.gradeManagementWeb.dao;
 
 
 import java.util.List;
@@ -7,7 +7,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
-import com.fdmgroup.gradeManagementWeb.origin.Student;
+import com.fdmgroup.gradeManagementWeb.entities.Student;
 
 
 
@@ -30,16 +30,16 @@ public class StudentDao {
 		em.close();
 	}
 	
-	public int getPassword(int idNumber) {
+	public String getPassword(int idNumber) {
 		EntityManager em =emf.createEntityManager();
 		Student student =em.find(Student.class, idNumber);
 		System.out.println(student);
-		int password = student.getPassword();
+		String password = student.getPassword();
 		em.close();
 		return password;
 	}
 	
-	public void updatePassword(int idNumber, int newPassword) {
+	public void updatePassword(int idNumber, String newPassword) {
 		EntityManager em =emf.createEntityManager();
 		Student student =em.find(Student.class, idNumber);
 		EntityTransaction et = em.getTransaction();

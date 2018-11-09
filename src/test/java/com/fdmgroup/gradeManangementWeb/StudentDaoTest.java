@@ -13,8 +13,8 @@ import org.junit.Test;
 //import org.mockito.InOrder;
 import org.mockito.Mockito;
 
-import com.fdmgroup.gradeManagementWeb.daoFile.StudentDao;
-import com.fdmgroup.gradeManagementWeb.origin.Student;
+import com.fdmgroup.gradeManagementWeb.dao.StudentDao;
+import com.fdmgroup.gradeManagementWeb.entities.Student;
 
 
 
@@ -27,7 +27,7 @@ public class StudentDaoTest {
 		EntityManagerFactory mockEmf = mock(EntityManagerFactory.class);
 		EntityManager mockEm = mock(EntityManager.class);
 		EntityTransaction mockEt = mock(EntityTransaction.class);
-		Student student = new Student("aa","bb",123,null);
+		Student student = new Student("aa","bb","123",null);
 		
 		when(mockEmf.createEntityManager()).thenReturn(mockEm);
 		when(mockEm.getTransaction()).thenReturn(mockEt);
@@ -50,7 +50,7 @@ public class StudentDaoTest {
 		EntityManager mockEm = mock(EntityManager.class);
 		EntityTransaction mockEt = mock(EntityTransaction.class);
 		
-		Student student = new Student("aa","bb",123,null);
+		Student student = new Student("aa","bb","123",null);
 		
 		when(mockEmf.createEntityManager()).thenReturn(mockEm);
 		when(mockEm.getTransaction()).thenReturn(mockEt);
@@ -72,14 +72,14 @@ public class StudentDaoTest {
 		EntityManager mockEm = mock(EntityManager.class);
 		EntityTransaction mockEt = mock(EntityTransaction.class);
 		
-		Student student = new Student("aa","bb",123,null);
+		Student student = new Student("aa","bb","123",null);
 		
 		when(mockEmf.createEntityManager()).thenReturn(mockEm);
 		when(mockEm.getTransaction()).thenReturn(mockEt);
 		when(mockEm.find(Student.class, 1)).thenReturn(student);
 		
 		StudentDao sDao = new StudentDao(mockEmf);
-		sDao.updatePassword(1, 000);
+		sDao.updatePassword(1, "000");
 		verify(mockEmf).createEntityManager();
 		verify(mockEm).find(Student.class, 1);
 		verify(mockEm).getTransaction();
@@ -97,7 +97,7 @@ public class StudentDaoTest {
 		EntityManager mockEm = mock(EntityManager.class);
 		EntityTransaction mockEt = mock(EntityTransaction.class);
 		
-		Student student = Mockito.spy(new Student("aa","bb",123,null));
+		Student student = Mockito.spy(new Student("aa","bb","123",null));
 		
 		when(mockEmf.createEntityManager()).thenReturn(mockEm);
 		when(mockEm.getTransaction()).thenReturn(mockEt);
@@ -123,7 +123,7 @@ public class StudentDaoTest {
 		EntityManager mockEm = mock(EntityManager.class);
 		EntityTransaction mockEt = mock(EntityTransaction.class);
 		
-		Student student = new Student("aa","bb",123,null);
+		Student student = new Student("aa","bb","123",null);
 		
 		when(mockEmf.createEntityManager()).thenReturn(mockEm);
 		when(mockEm.getTransaction()).thenReturn(mockEt);
@@ -135,7 +135,7 @@ public class StudentDaoTest {
 		verify(mockEm).find(Student.class, 1);
 		verify(mockEm).getTransaction();
 		verify(mockEt).begin();
-		verify(mockEm).remove(1);
+		verify(mockEm).remove(student);
 		verify(mockEt).commit();
 		verify(mockEm).close();		
 	}

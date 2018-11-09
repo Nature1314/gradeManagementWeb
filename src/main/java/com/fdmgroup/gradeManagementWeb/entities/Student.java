@@ -1,4 +1,4 @@
-package com.fdmgroup.gradeManagementWeb.origin;
+package com.fdmgroup.gradeManagementWeb.entities;
 
 import java.util.List;
 
@@ -19,11 +19,11 @@ public class Student {
 	private int idNumber;
 	private String firstName;
 	private String lastName;
-	private int password;
+	private String password;
 	@ManyToMany
-	@JoinTable(name = "Courses_I_have",
-			    joinColumns=@JoinColumn(name="Courses_the_student_have", referencedColumnName="course_name"),
-			    inverseJoinColumns=@JoinColumn(name="Course_name", referencedColumnName="course_name")
+	@JoinTable(name = "Courses_of_student",
+			    joinColumns=@JoinColumn(name="student_id", referencedColumnName="idNumber"),
+			    inverseJoinColumns=@JoinColumn(name="Course_id", referencedColumnName="courseIdNumber")
 			)
 	private List<Course> courses;
 	
@@ -43,11 +43,17 @@ public class Student {
 	
 	
 
-	public Student(String firstName, String lastName, int password, List<Course> courses) {
+	public Student(String firstName, String lastName, String password, List<Course> courses) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.password = password;
 		this.courses = courses;
+	}
+	
+	public Student(String firstName, String lastName, String password) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.password = password;
 	}
 
 	public int getIdNumber() {
@@ -74,11 +80,11 @@ public class Student {
 		this.lastName = lastName;
 	}
 
-	public int getPassword() {
+	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(int password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 
