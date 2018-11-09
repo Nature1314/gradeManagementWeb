@@ -13,10 +13,10 @@
 
 	
 	<select name="Your status" onchange="location = this.value;">
+	  <option value="Your status">your status</option>
 	  <option value="student.jsp">Student</option>
 	  <option value="teacher.jsp">Teacher</option>
 	  <option value="administrator.jsp">IT Administrator</option>
 	</select>
-		<a href="Login">go to login</a>
 </body>
 </html>
