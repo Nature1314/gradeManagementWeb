@@ -1,4 +1,4 @@
-package com.fdmgroup.gradeManagementWeb.origin;
+package com.fdmgroup.gradeManagementWeb.entities;
 
 
 import javax.persistence.EmbeddedId;

@@ -1,4 +1,4 @@
-package com.fdmgroup.gradeManagementWeb.daoFile;
+package com.fdmgroup.gradeManagementWeb.dao;
 
 import java.util.List;
 
@@ -7,11 +7,11 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
+import com.fdmgroup.gradeManagementWeb.entities.Course;
+import com.fdmgroup.gradeManagementWeb.entities.Grade;
+import com.fdmgroup.gradeManagementWeb.entities.GradeID;
+import com.fdmgroup.gradeManagementWeb.entities.Student;
 import com.fdmgroup.gradeManagementWeb.factories.GradeIdFactory;
-import com.fdmgroup.gradeManagementWeb.origin.Course;
-import com.fdmgroup.gradeManagementWeb.origin.Grade;
-import com.fdmgroup.gradeManagementWeb.origin.GradeID;
-import com.fdmgroup.gradeManagementWeb.origin.Student;
 
 public class GradeDao {
 

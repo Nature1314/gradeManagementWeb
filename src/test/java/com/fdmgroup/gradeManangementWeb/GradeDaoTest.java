@@ -15,12 +15,12 @@ import javax.persistence.TypedQuery;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.fdmgroup.gradeManagementWeb.daoFile.GradeDao;
+import com.fdmgroup.gradeManagementWeb.dao.GradeDao;
+import com.fdmgroup.gradeManagementWeb.entities.Course;
+import com.fdmgroup.gradeManagementWeb.entities.Grade;
+import com.fdmgroup.gradeManagementWeb.entities.GradeID;
+import com.fdmgroup.gradeManagementWeb.entities.Student;
 import com.fdmgroup.gradeManagementWeb.factories.GradeIdFactory;
-import com.fdmgroup.gradeManagementWeb.origin.Course;
-import com.fdmgroup.gradeManagementWeb.origin.Grade;
-import com.fdmgroup.gradeManagementWeb.origin.GradeID;
-import com.fdmgroup.gradeManagementWeb.origin.Student;
 
 public class GradeDaoTest {
 
