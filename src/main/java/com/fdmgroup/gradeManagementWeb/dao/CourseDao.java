@@ -1,15 +1,11 @@
-package com.fdmgroup.gradeManagementWeb.daoFile;
+package com.fdmgroup.gradeManagementWeb.dao;
 
-
-import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
 
-import com.fdmgroup.gradeManagementWeb.origin.Course;
-import com.fdmgroup.gradeManagementWeb.origin.Student;
+import com.fdmgroup.gradeManagementWeb.entities.Course;
 
 
 
@@ -56,28 +52,4 @@ public class CourseDao {
 		em.close();
 		return course;	
 	} 
-	
-	public List<Student> searchStudent(String firstName, String lastName){
-		EntityManager em =emf.createEntityManager();
-		Query query = null;
-		if(firstName!=null&&lastName!=null) {
-			query =em.createQuery("SELECT s FROM Student s WHERE s.firstName = :firstName AND s.lastName = :lastName ", 
-					Student.class);
-			query.setParameter("firstName", firstName);
-			query.setParameter("lastName", lastName);
-		}else if (firstName!=null && lastName== null) {
-			query=em.createQuery("SELECT s FROM Student s WHERE s.firstName = :firstName ", 
-					Student.class);
-			query.setParameter("firstName", firstName);
-		}else if(firstName==null && lastName != null) {
-			query=em.createQuery("SELECT s FROM Student s WHERE s.lastName = :lastName ", 
-					Student.class);
-			query.setParameter("lastName", lastName);
-		}else {
-			System.out.println("No input");
-		}
-		List<Student> student = query.getResultList();
-		return student;	
-	}
-	
 }
