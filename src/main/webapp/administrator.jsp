@@ -14,8 +14,8 @@
 		  <option value="student">Student</option>
 		  <option value="teacher">Teacher</option>
 		</select>
-		<input type="text" name="firstName1" placeholder="type first name at here">
-		<input type="text" name="lastName1" placeholder="type last name at here">
+		<input required="required" type="text" name="firstName1" placeholder="type first name at here">
+		<input required="required" type="text" name="lastName1" placeholder="type last name at here">
 		<input type="password" name="password" placeholder="enter password">
 		<input type="submit" value="Submit">
 		
