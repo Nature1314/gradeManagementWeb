@@ -36,14 +36,16 @@ public class CourseDao {
 		em.close();
 	} 
 	
-	public void removeEntry(int idNumber) {
+	public void updateState(String courseName, Boolean active) {
 		EntityManager em =emf.createEntityManager();
-		Course courseToRemove = em.find(Course.class, idNumber);
+		Course course =em.find(Course.class, courseName);
 		EntityTransaction et = em.getTransaction();
 		et.begin();
-		em.remove(courseToRemove);
+		if(active) course.setStateOfCourse("active");
+		else course.setStateOfCourse("closed");
 		et.commit();
 		em.close();
+		
 	}
 	
 	public Course searchCourse(String courseName) {

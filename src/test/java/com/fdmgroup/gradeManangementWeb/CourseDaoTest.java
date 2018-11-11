@@ -83,28 +83,4 @@ public class CourseDaoTest {
 		assertTrue(cpp != null);
 	}
 */
-	@Test
-	public void test_removeEntry() {
-		Course course = new Course("aa");
-
-		when(mockEm.find(Course.class, 1)).thenReturn(course);
-
-		CourseDao sDao = new CourseDao(mockEmf);
-		sDao.removeEntry(1);
-		verify(mockEmf).createEntityManager();
-		verify(mockEm).find(Course.class, 1);
-		verify(mockEm).getTransaction();
-		verify(mockEt).begin();
-		verify(mockEm).remove(course);
-		verify(mockEt).commit();
-		verify(mockEm).close();
-	}
-/*
-	@Test
-	public void test_removeEntity_without_mock() {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("grade_jpa");
-		CourseDao sDao = new CourseDao(emf);
-		sDao.removeEntry(1);
-		
-	}*/
 }
