@@ -1,27 +1,28 @@
 package com.fdmgroup.gradeManagementWeb.entities;
 
-
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "Student_Grade")
 public class Grade {
 
-	@EmbeddedId
-	private GradeID id;
+	@Id
+	@GeneratedValue
+	private int idNumber;
+	private int studentID;
+	private String studentCourseName;
 	private int score;
+	private String resetState = "No information";
+	private Integer resetScore = null;
 
-	public Grade(Student student, Course course, int score) {
-		GradeID newGrade = new GradeID(course, student);
-		this.id = newGrade;
-		this.score = score;
-	}
-	
-	public Grade(GradeID id, int score) {
+
+	public Grade(int studentID, String studentCourseName, int score) {
 		super();
-		this.id = id;
+		this.studentID = studentID;
+		this.studentCourseName = studentCourseName;
 		this.score = score;
 	}
 
@@ -37,13 +38,45 @@ public class Grade {
 	public void setScore(int score) {
 		this.score = score;
 	}
+
+
+	public int getStudentID() {
+		return studentID;
+	}
+
+
+	public void setStudentID(int studentID) {
+		this.studentID = studentID;
+	}
+
+
+	public String getStudentCourseName() {
+		return studentCourseName;
+	}
+
+
+	public void setStudentCourseName(String studentCourseName) {
+		this.studentCourseName = studentCourseName;
+	}
+
 	
-	public GradeID getId() {
-		return id;
+	public String getResetState() {
+		return resetState;
 	}
-
-	public void setId(GradeID id) {
-		this.id = id;
+	
+	
+	public void setResetState(String resetState) {
+		this.resetState = resetState;
 	}
-
+	
+	
+	public Integer getResetScore() {
+		return resetScore;
+	}
+	
+	
+	public void setResetScore(Integer resetScore) {
+		this.resetScore = resetScore;
+	}
+	
 }

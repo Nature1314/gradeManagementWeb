@@ -41,7 +41,6 @@ public class TeacherDaoTest {
 
 	@Test
 	public void test_addItem() {
-		System.out.println("The function tests for the add item function");
 
 		Teacher teacher = new Teacher("aa","bb","123");
 		
@@ -68,8 +67,7 @@ public class TeacherDaoTest {
 	
 	@Test
 	public void test_getPassword() {
-		System.out.println("The function tests getPassword method and sees if it return password");
-		
+	
 		Teacher teacher = new Teacher("aa","bb","123");
 
 		when(mockEm.find(Teacher.class, 1)).thenReturn(teacher);
@@ -93,7 +91,6 @@ public class TeacherDaoTest {
 */	
 	@Test
 	public void test_updatePassword() {
-		System.out.println("The function tests updatePassword method");
 		
 		EntityManagerFactory mockEmf = mock(EntityManagerFactory.class);
 		EntityManager mockEm = mock(EntityManager.class);
@@ -143,33 +140,4 @@ public class TeacherDaoTest {
 		verify(mockEt).commit();
 		verify(mockEm).close();
 	}
-	
-	
-	@Test
-	public void test_removeEntry() {
-		Teacher mockTeacher = new Teacher("aa","bb","123");
-	
-		when(mockEm.find(Teacher.class, 0)).thenReturn(mockTeacher);
-		
-		TeacherDao sDao = new TeacherDao(mockEmf);
-		sDao.removeEntry(0);
-		verify(mockEmf).createEntityManager();
-		verify(mockEm).find(Teacher.class, 0);
-		verify(mockEm).getTransaction();
-		verify(mockEt).begin();
-		verify(mockEm).remove(mockTeacher);
-		verify(mockEt).commit();
-		verify(mockEm).close();		
-	}
-	
-/**
-	@Test
-	public void test_removeEntity_without_mock() {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("grade_jpa");
-		TeacherDao sDao = new TeacherDao(emf);
-		sDao.removeEntry(1);
-		Teacher jimmy = sDao.searchTeacher(1);
-		assertTrue(jimmy == null);	
-	}
-*/
 }

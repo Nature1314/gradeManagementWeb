@@ -20,6 +20,8 @@ public class Student {
 	private String firstName;
 	private String lastName;
 	private String password;
+	private String stateOfStudent = "active";
+
 	@ManyToMany
 	@JoinTable(name = "Courses_of_student",
 			    joinColumns=@JoinColumn(name="student_id", referencedColumnName="idNumber"),
@@ -41,6 +43,13 @@ public class Student {
 		
 	}
 	
+	public String getStateOfStudent() {
+		return stateOfStudent;
+	}
+	
+	public void setStateOfStudent(String stateOfStudent) {
+		this.stateOfStudent = stateOfStudent;
+	}
 	
 
 	public Student(String firstName, String lastName, String password, List<Course> courses) {

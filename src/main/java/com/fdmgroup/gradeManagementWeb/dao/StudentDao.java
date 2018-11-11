@@ -58,18 +58,18 @@ public class StudentDao {
 		student.setLastName(lastName);
 		et.commit();
 		em.close();
-	} 
+	}
 	
-	public void removeEntry(int idNumber) {
+	public void updatestate(int idNumber, String newState) {
 		EntityManager em =emf.createEntityManager();
-		Student student = em.find(Student.class, idNumber);
+		Student student =em.find(Student.class, idNumber);
 		EntityTransaction et = em.getTransaction();
 		et.begin();
-		em.remove(student);
+		student.setStateOfStudent(newState);
 		et.commit();
 		em.close();
 	}
-	
+
 	public Student searchStudent(int idNumber) {
 		EntityManager em =emf.createEntityManager();
 		Student student =em.find(Student.class, idNumber);

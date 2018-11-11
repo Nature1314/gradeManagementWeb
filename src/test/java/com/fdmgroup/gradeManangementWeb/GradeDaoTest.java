@@ -120,39 +120,6 @@ public class GradeDaoTest {
 		verify(mockEm).close();
 	}
 
-	@Test
-	public void test_removeEntry() {
-		System.out.println("The function tests removeEntry method");
-		String courseName = "Java";
-		int studentId = 0;
-
-		GradeIdFactory mockFactory = mock(GradeIdFactory.class);
-		GradeID mockGradeID = mock(GradeID.class);
-		Student mockStudent = mock(Student.class);
-		Course mockCourse = mock(Course.class);
-		Grade mockGrade = mock(Grade.class);
-
-		when(mockFactory.getGradeId()).thenReturn(mockGradeID);
-		when(mockEm.find(Course.class, courseName)).thenReturn(mockCourse);
-		when(mockEm.find(Student.class, studentId)).thenReturn(mockStudent);
-		when(mockEm.find(Grade.class, mockGradeID)).thenReturn(mockGrade);
-
-		GradeDao sDao = new GradeDao(mockEmf);
-		sDao.removeEntry(studentId, courseName, mockFactory);
-
-		verify(mockEm).find(Course.class, courseName);
-		verify(mockEm).find(Student.class, studentId);
-		verify(mockEmf).createEntityManager();
-		verify(mockFactory).getGradeId();
-		verify(mockGradeID).setCourse(mockCourse);
-		verify(mockGradeID).setStudent(mockStudent);
-		verify(mockEm).find(Grade.class, mockGradeID);
-		verify(mockEm).getTransaction();
-		verify(mockEt).begin();
-		verify(mockEm).remove(mockGrade);
-		verify(mockEt).commit();
-		verify(mockEm).close();
-	}
 
 	@Test
 	public void test_checkGrade_courseNameIsNotNull() {

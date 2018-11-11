@@ -59,12 +59,12 @@ public class TeacherDao {
 		em.close();
 	}
 	
-	public void removeEntry(int idNumber) {
+	public void updateState(int idNumber, String newState) {
 		EntityManager em =emf.createEntityManager();
-		Teacher teacher = em.find(Teacher.class, idNumber);
+		Teacher teacher =em.find(Teacher.class, idNumber);
 		EntityTransaction et = em.getTransaction();
 		et.begin();
-		em.remove(teacher);
+		teacher.setStateOfTeacher(newState);
 		et.commit();
 		em.close();
 	}

@@ -21,7 +21,8 @@ public class Teacher {
 	@ManyToOne
 	@JoinColumn(name = "Course_I_teach")
 	private Course course;
-	
+	private String stateOfTeacher = "active";
+
 	public Teacher() {
 		super();
 	}
@@ -41,6 +42,14 @@ public class Teacher {
 		this.idNumber = idNumber;
 	}
 
+	public String getStateOfTeacher() {
+		return stateOfTeacher;
+	}
+	
+	public void setStateOfTeacher(String stateOfTeacher) {
+		this.stateOfTeacher = stateOfTeacher;
+	}
+	
 	public String getFirstName() {
 		return firstName;
 	}

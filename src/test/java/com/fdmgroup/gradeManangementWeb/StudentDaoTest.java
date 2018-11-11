@@ -114,31 +114,5 @@ public class StudentDaoTest {
 		verify(mockEt).commit();
 		verify(mockEm).close();
 	}
-	
-	@Test
-	public void test_removeEntry() {
-		System.out.println("The function tests removeEntry method");
-		
-		EntityManagerFactory mockEmf = mock(EntityManagerFactory.class);
-		EntityManager mockEm = mock(EntityManager.class);
-		EntityTransaction mockEt = mock(EntityTransaction.class);
-		
-		Student student = new Student("aa","bb","123",null);
-		
-		when(mockEmf.createEntityManager()).thenReturn(mockEm);
-		when(mockEm.getTransaction()).thenReturn(mockEt);
-		when(mockEm.find(Student.class, 1)).thenReturn(student);
-		
-		StudentDao sDao = new StudentDao(mockEmf);
-		sDao.removeEntry(1);
-		verify(mockEmf).createEntityManager();
-		verify(mockEm).find(Student.class, 1);
-		verify(mockEm).getTransaction();
-		verify(mockEt).begin();
-		verify(mockEm).remove(student);
-		verify(mockEt).commit();
-		verify(mockEm).close();		
-	}
-	
 
 }
