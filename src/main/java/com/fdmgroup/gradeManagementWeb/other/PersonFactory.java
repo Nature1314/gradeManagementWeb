@@ -1,4 +1,8 @@
-package com.fdmgroup.gradeManagementWeb.entities;
+package com.fdmgroup.gradeManagementWeb.other;
+
+import com.fdmgroup.gradeManagementWeb.entities.Administrator;
+import com.fdmgroup.gradeManagementWeb.entities.Student;
+import com.fdmgroup.gradeManagementWeb.entities.Teacher;
 
 public class PersonFactory {
 

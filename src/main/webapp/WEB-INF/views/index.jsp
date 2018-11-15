@@ -19,14 +19,14 @@
 		student grade information retrieval and management system!</marquee>
 
 	<div class="center">
-		<form action="index" method="POST">
+		<sf:form action="index" method="POST" modelAttribute="select_user">
 			<select name="status" class="cmb">
 				<option value="Your status">your status</option>
 				<option value="studentLogin">Student</option>
 				<option value="teacherLogin">Teacher</option>
 				<option value="adminLogin">IT Administrator</option>
 			</select> <input type="submit" value="Click">
-		</form>
+		</sf:form>
 	</div>
 
 	<img align="middle" alt="background"

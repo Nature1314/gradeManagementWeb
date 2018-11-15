@@ -13,7 +13,7 @@
 		<table>
 		    <tr>
 		        <td>ID Number :</td>
-		        <td><sf:input path="IDnumber" required="required"/></td>
+		        <td><sf:input path="idNumber" required="required"/></td>
 		    </tr>
 		    <tr>
 		        <td>Password :</td>

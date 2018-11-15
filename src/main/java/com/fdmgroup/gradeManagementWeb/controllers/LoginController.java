@@ -13,8 +13,8 @@ import com.fdmgroup.gradeManagementWeb.dao.StudentDao;
 import com.fdmgroup.gradeManagementWeb.dao.TeacherDao;
 import com.fdmgroup.gradeManagementWeb.entities.Student;
 import com.fdmgroup.gradeManagementWeb.entities.Administrator;
-import com.fdmgroup.gradeManagementWeb.entities.PersonFactory;
 import com.fdmgroup.gradeManagementWeb.entities.Teacher;
+import com.fdmgroup.gradeManagementWeb.other.PersonFactory;
 
 
 
@@ -75,7 +75,8 @@ public class LoginController {
 	public String loginAdminUser(Administrator admin) {
 		int idNumber =admin.getIdNumber();
 		Administrator adminInData = aDao.searchAdmin(idNumber);
-		if (admin.getPassword().equals(adminInData.getPassword())) {
+		String password = admin.getPassword();
+		if (password.equals(adminInData.getPassword())) {
 			return "administrator";
 		}else {
 			return "block";
