@@ -1,0 +1,20 @@
+
+
+.center {
+	text-align: center;
+	/*These options are for the div to be visible in the example, the important is the first*/
+	
+	width: auto;
+	height: auto;
+}
+
+.cmb {
+	display: block;
+	margin: 0 auto;
+}
+
+.centerImage
+{
+text-align:center;
+display:block;
+}

@@ -2,6 +2,8 @@ package com.fdmgroup.gradeManagementWeb.dao;
 
 
 import java.util.List;
+
+import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -14,12 +16,8 @@ import com.fdmgroup.gradeManagementWeb.entities.Student;
 
 public class StudentDao {
 
+	@Resource(name ="emfBean")
 	private EntityManagerFactory emf;
-
-	public StudentDao(EntityManagerFactory emf) {
-		super();
-		this.emf = emf;
-	}
 	
 	public void addItem(Student student) {
 		EntityManager em = emf.createEntityManager();

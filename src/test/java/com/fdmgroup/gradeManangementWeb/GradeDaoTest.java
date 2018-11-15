@@ -14,8 +14,12 @@ import javax.persistence.TypedQuery;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import com.fdmgroup.gradeManagementWeb.dao.GradeDao;
+import com.fdmgroup.gradeManagementWeb.dao.StudentDao;
 import com.fdmgroup.gradeManagementWeb.entities.Course;
 import com.fdmgroup.gradeManagementWeb.entities.Grade;
 import com.fdmgroup.gradeManagementWeb.entities.GradeID;
@@ -24,13 +28,16 @@ import com.fdmgroup.gradeManagementWeb.factories.GradeIdFactory;
 
 public class GradeDaoTest {
 
+	@Mock
 	private EntityManagerFactory mockEmf;
 	private EntityManager mockEm;
 	private EntityTransaction mockEt;
 
+	@InjectMocks
+	private GradeDao sDao = new GradeDao();
 	@Before
 	public void commonStubbing() {
-		mockEmf = mock(EntityManagerFactory.class);
+		MockitoAnnotations.initMocks(this);
 		mockEm = mock(EntityManager.class);
 		mockEt = mock(EntityTransaction.class);
 
@@ -42,7 +49,6 @@ public class GradeDaoTest {
 	public void test_addItem_when_param_is_Grade() {
 		Grade mockGrade = mock(Grade.class);
 
-		GradeDao sDao = new GradeDao(mockEmf);
 		sDao.addItem(mockGrade);
 		verify(mockEmf).createEntityManager();
 		verify(mockEm).getTransaction();
@@ -69,7 +75,6 @@ public class GradeDaoTest {
 		when(mockEm.find(Student.class, studentID)).thenReturn(mockStudent);
 		when(mockEm.find(Grade.class, mockGradeID)).thenReturn(mockGrade);
 
-		GradeDao sDao = new GradeDao(mockEmf);
 		sDao.addItem(studentID, courseName, score, mockFactory);
 
 		verify(mockEm).find(Student.class, studentID);
@@ -103,7 +108,6 @@ public class GradeDaoTest {
 		when(mockEm.find(Student.class, studentId)).thenReturn(mockStudent);
 		when(mockEm.find(Grade.class, mockGradeID)).thenReturn(mockGrade);
 
-		GradeDao sDao = new GradeDao(mockEmf);
 		sDao.updateGrade(studentId, courseName, newScore, mockFactory);
 
 		verify(mockEm).find(Course.class, courseName);
@@ -133,7 +137,6 @@ public class GradeDaoTest {
 
 		when(mockEm.createQuery(jpql, Grade.class)).thenReturn(mockQuery);
 		when(mockQuery.getResultList()).thenReturn(testlist);
-		GradeDao sDao = new GradeDao(mockEmf);
 		sDao.checkGrade(studentID, courseName);
 
 		verify(mockEm).createQuery(jpql, Grade.class);
@@ -154,7 +157,6 @@ public class GradeDaoTest {
 
 		when(mockEm.createQuery(jpql, Grade.class)).thenReturn(mockQuery);
 		when(mockQuery.getResultList()).thenReturn(testlist);
-		GradeDao sDao = new GradeDao(mockEmf);
 		sDao.checkGrade(studentID, courseName);
 
 		verify(mockEm).createQuery(jpql, Grade.class);

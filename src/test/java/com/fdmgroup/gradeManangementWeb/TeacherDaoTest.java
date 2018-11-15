@@ -13,10 +13,14 @@ import javax.persistence.Persistence;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 //import org.mockito.InOrder;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
 import com.fdmgroup.gradeManagementWeb.dao.CourseDao;
+import com.fdmgroup.gradeManagementWeb.dao.StudentDao;
 import com.fdmgroup.gradeManagementWeb.dao.TeacherDao;
 import com.fdmgroup.gradeManagementWeb.entities.Course;
 import com.fdmgroup.gradeManagementWeb.entities.Teacher;
@@ -24,14 +28,17 @@ import com.fdmgroup.gradeManagementWeb.entities.Teacher;
 
 
 public class TeacherDaoTest {
-	
+	@Mock
 	private EntityManagerFactory mockEmf;
 	private EntityManager mockEm;
 	private EntityTransaction mockEt;
 
+	@InjectMocks
+	private TeacherDao sDao = new TeacherDao();
+	
 	@Before
 	public void commonStubbing() {
-		mockEmf = mock(EntityManagerFactory.class);
+		MockitoAnnotations.initMocks(this);
 		mockEm = mock(EntityManager.class);
 		mockEt = mock(EntityTransaction.class);
 
@@ -44,7 +51,6 @@ public class TeacherDaoTest {
 
 		Teacher teacher = new Teacher("aa","bb","123");
 		
-		TeacherDao sDao = new TeacherDao(mockEmf);
 		sDao.addItem(teacher);
 		verify(mockEmf).createEntityManager();
 		verify(mockEm).getTransaction();
@@ -72,7 +78,6 @@ public class TeacherDaoTest {
 
 		when(mockEm.find(Teacher.class, 1)).thenReturn(teacher);
 		
-		TeacherDao sDao = new TeacherDao(mockEmf);
 		sDao.getPassword(1);
 		
 		verify(mockEmf).createEntityManager();
@@ -91,18 +96,12 @@ public class TeacherDaoTest {
 */	
 	@Test
 	public void test_updatePassword() {
-		
-		EntityManagerFactory mockEmf = mock(EntityManagerFactory.class);
-		EntityManager mockEm = mock(EntityManager.class);
-		EntityTransaction mockEt = mock(EntityTransaction.class);
+	
 		
 		Teacher teacher = new Teacher("aa","bb","123");
-		
-		when(mockEmf.createEntityManager()).thenReturn(mockEm);
-		when(mockEm.getTransaction()).thenReturn(mockEt);
+
 		when(mockEm.find(Teacher.class, 1)).thenReturn(teacher);
 		
-		TeacherDao sDao = new TeacherDao(mockEmf);
 		sDao.updatePassword(1, "000");
 		verify(mockEmf).createEntityManager();
 		verify(mockEm).find(Teacher.class, 1);
@@ -129,7 +128,6 @@ public class TeacherDaoTest {
 
 		when(mockEm.find(Teacher.class, 1)).thenReturn(teacher);
 		
-		TeacherDao sDao = new TeacherDao(mockEmf);
 		sDao.updateName(1, "cc", "dd");
 		verify(mockEmf).createEntityManager();
 		verify(mockEm).find(Teacher.class, 1);

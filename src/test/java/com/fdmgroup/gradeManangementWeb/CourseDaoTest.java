@@ -12,16 +12,23 @@ import javax.persistence.Persistence;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import com.fdmgroup.gradeManagementWeb.dao.CourseDao;
+import com.fdmgroup.gradeManagementWeb.dao.StudentDao;
 import com.fdmgroup.gradeManagementWeb.entities.Course;
 
 public class CourseDaoTest {
 
+	@Mock
 	private EntityManagerFactory mockEmf;
 	private EntityManager mockEm;
 	private EntityTransaction mockEt;
+
+	@InjectMocks
+	private CourseDao sDao = new CourseDao();
 
 	@Before
 	public void commonStubbing() {
@@ -37,7 +44,6 @@ public class CourseDaoTest {
 	public void test_addItem() {
 		Course course = new Course("aa");
 
-		CourseDao sDao = new CourseDao(mockEmf);
 		sDao.addItem(course);
 		verify(mockEmf).createEntityManager();
 		verify(mockEm).getTransaction();
@@ -63,7 +69,6 @@ public class CourseDaoTest {
 		Course course = Mockito.spy(new Course("aa"));
 		when(mockEm.find(Course.class, "aa")).thenReturn(course);
 
-		CourseDao sDao = new CourseDao(mockEmf);
 		sDao.updateName("aa", "a");
 		verify(mockEmf).createEntityManager();
 		verify(mockEm).find(Course.class, "aa");
