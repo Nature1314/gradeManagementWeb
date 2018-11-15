@@ -31,6 +31,6 @@
 		alt="background" 
 		src="https://upload.wikimedia.org/wikipedia/commons/e/ec/Dartmouth_College_campus_2007-10-20_09.JPG"
 		width = 800
-		height = 300>
+		height = 500>
 </body>
 </html>
