@@ -39,11 +39,11 @@ public class LoginController {
 	@RequestMapping(value = { "/studentlogin", "/studentLogin" },method = RequestMethod.POST )
 	public String loginStudentUser(Student student) {
 		int idNumber =student.getIdNumber();
-		if (sDao.searchStudent(idNumber)!=null) {
+		Student studentInData = sDao.searchStudent(idNumber);
+		if(student.getPassword().equals(studentInData.getPassword()))
 			return "student";
-		}else {
+		else
 			return "block";
-		}
 	}
 	
 	@RequestMapping(value = { "/teacherlogin", "/teacherLogin" }, method = RequestMethod.GET)
@@ -56,7 +56,8 @@ public class LoginController {
 	@RequestMapping(value = { "/teacherlogin", "/teacherLogin" },method = RequestMethod.POST )
 	public String loginTeacherUser(Teacher teacher) {
 		int idNumber =teacher.getIdNumber();
-		if (tDao.searchTeacher(idNumber)!=null) {
+		Teacher teacherInData = tDao.searchTeacher(idNumber);
+		if (teacher.getPassword().equals(teacherInData.getPassword())) {
 			return "teacher";
 		}else {
 			return "block";
@@ -73,7 +74,8 @@ public class LoginController {
 	@RequestMapping(value = { "/adminlogin", "/adminLogin" },method = RequestMethod.POST )
 	public String loginAdminUser(Administrator admin) {
 		int idNumber =admin.getIdNumber();
-		if (aDao.searchAdmin(idNumber)!=null) {
+		Administrator adminInData = aDao.searchAdmin(idNumber);
+		if (admin.getPassword().equals(adminInData.getPassword())) {
 			return "administrator";
 		}else {
 			return "block";

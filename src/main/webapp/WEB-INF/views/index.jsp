@@ -19,18 +19,18 @@
 		student grade information retrieval and management system!</marquee>
 
 	<div class="center">
-		<select name="Your status" onchange="location = this.value;"
-			class="cmb">
-			<option value="Your status">your status</option>
-			<option value="studentLogin.jsp">Student</option>
-			<option value="teacherLogin.jsp">Teacher</option>
-			<option value="adminLogin.jsp">IT Administrator</option>
-		</select>
+		<form action="index" method="POST">
+			<select name="status" class="cmb">
+				<option value="Your status">your status</option>
+				<option value="studentLogin">Student</option>
+				<option value="teacherLogin">Teacher</option>
+				<option value="adminLogin">IT Administrator</option>
+			</select> <input type="submit" value="Click">
+		</form>
 	</div>
-	<img  class = "centerImage"
-		alt="background" 
+
+	<img align="middle" alt="background"
 		src="https://upload.wikimedia.org/wikipedia/commons/e/ec/Dartmouth_College_campus_2007-10-20_09.JPG"
-		width = 800
-		height = 500>
+		width=800 height=500>
 </body>
 </html>

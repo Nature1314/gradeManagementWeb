@@ -6,25 +6,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-
 @Controller
 public class IndexController {
-	
-	
+
 	@RequestMapping(value = { "/", "/index" }, method = RequestMethod.GET)
 	public String goToIndex() {
 		return "index";
 	}
-	
-	
-	@RequestMapping(value = { "/", "/index" })
-	public String goToLoginPage(HttpServletRequest req){
+
+	@RequestMapping(value = { "/", "/index" }, method = RequestMethod.POST)
+	public String goToLoginPage(HttpServletRequest req) {
 		String type = req.getParameter("status");
-		if(type.equals("student")) {
+		System.out.println(type);
+		if (type.equals("student")) {
 			return "studentLogin";
-		}else if(type.equals("teacher")) {
+		} else if (type.equals("teacher")) {
 			return "teacherLogin";
-		}else {
+		} else {
 			return "adminLogin";
 		}
 	}

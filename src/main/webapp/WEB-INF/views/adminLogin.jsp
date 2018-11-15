@@ -5,23 +5,19 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>administrator login page</title>
 </head>
 <body>
 
-	<sf:form action="Login" method="POST" modelAttribute="admin_login_user">
+	<sf:form action="adminLogin" method="POST" modelAttribute="admin_login_user">
 		<table>
 		    <tr>
-		        <td>First Name :</td>
-		        <td><sf:input path="firstName" /></td>
-		    </tr>
-		    <tr>
-		        <td>Last Name :</td>
-		        <td><sf:input path="lastName" /></td>
+		        <td>ID Number :</td>
+		        <td><sf:input path="IDnumber" required="required"/></td>
 		    </tr>
 		    <tr>
 		        <td>Password :</td>
-		        <td><sf:password path="password" /></td>
+		        <td><sf:password path="password" required="required" /></td>
 		    </tr>
 		    <tr>
 		    	<td><input type="submit" value= "Login"></td>
