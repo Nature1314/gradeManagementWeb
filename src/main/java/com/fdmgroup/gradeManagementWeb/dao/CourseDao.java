@@ -34,13 +34,12 @@ public class CourseDao {
 		em.close();
 	} 
 	
-	public void updateState(String courseName, Boolean active) {
+	public void updateState(String courseName, String active) {
 		EntityManager em =emf.createEntityManager();
 		Course course =em.find(Course.class, courseName);
 		EntityTransaction et = em.getTransaction();
 		et.begin();
-		if(active) course.setStateOfCourse("active");
-		else course.setStateOfCourse("closed");
+		course.setStateOfCourse(active);
 		et.commit();
 		em.close();
 		

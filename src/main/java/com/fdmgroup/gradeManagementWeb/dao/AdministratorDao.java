@@ -6,7 +6,7 @@ import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import com.fdmgroup.gradeManagementWeb.entities.Administrator;
 
@@ -51,7 +51,7 @@ public class AdministratorDao {
 	
 	public List<Administrator> searchAdmin(String firstName, String lastName){
 		EntityManager em =emf.createEntityManager();
-		Query query = null;
+		TypedQuery<Administrator>  query = null;
 		if(firstName!=null&&lastName!=null) {
 			query =em.createQuery("SELECT s FROM Administrator s WHERE s.firstName = :firstName AND s.lastName = :lastName ", 
 					Administrator.class);

@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import com.fdmgroup.gradeManagementWeb.entities.Student;
 
@@ -58,7 +58,7 @@ public class StudentDao {
 		em.close();
 	}
 	
-	public void updatestate(int idNumber, String newState) {
+	public void updateState(int idNumber, String newState) {
 		EntityManager em =emf.createEntityManager();
 		Student student =em.find(Student.class, idNumber);
 		EntityTransaction et = em.getTransaction();
@@ -77,7 +77,7 @@ public class StudentDao {
 	
 	public List<Student> searchStudent(String firstName, String lastName){
 		EntityManager em =emf.createEntityManager();
-		Query query = null;
+		TypedQuery<Student>  query = null;
 		if(firstName!=null&&lastName!=null) {
 			query =em.createQuery("SELECT s FROM Student s WHERE s.firstName = :firstName AND s.lastName = :lastName ", 
 					Student.class);

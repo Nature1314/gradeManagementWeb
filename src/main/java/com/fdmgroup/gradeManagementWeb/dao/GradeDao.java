@@ -6,10 +6,9 @@ import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import com.fdmgroup.gradeManagementWeb.entities.Grade;
-import com.fdmgroup.gradeManagementWeb.factories.GradeIdFactory;
 
 public class GradeDao {
 
@@ -25,20 +24,11 @@ public class GradeDao {
 		em.close();
 	}
 
-	public void addItem(int studentID, String courseName, int score, GradeIdFactory gradeIdFactory) {
-		EntityManager em = emf.createEntityManager();
-		Grade grade = new Grade(studentID, courseName, score);
-		EntityTransaction et = em.getTransaction();
-		et.begin();
-		em.persist(grade);
-		et.commit();
-		em.close();
-	}
 
 	public List<Grade> checkGrade(int studentID, String courseName) {
 		
 		EntityManager em = emf.createEntityManager();
-		Query query = null;
+		TypedQuery<Grade>  query = null;
 		if (courseName != null) {
 			query = em.createQuery(
 					"SELECT s FROM Grade s WHERE s.id.student_ID = :studentID AND s.id.course_name = :courseName ",
@@ -54,7 +44,7 @@ public class GradeDao {
 		return grade;
 	}
 
-	public void updateGrade(int studentID, String courseName, int newScore, GradeIdFactory gradeIdFactory) {
+	public void updateGrade(int studentID, String courseName, int newScore) {
 		EntityManager em = emf.createEntityManager();
 		Grade grade = checkGrade(studentID, courseName).get(0);
 		EntityTransaction et = em.getTransaction();
@@ -64,7 +54,7 @@ public class GradeDao {
 		em.close();
 	}
 	
-	public void updateResetInformation(int studentID, String courseName, String resetState, int resetScore, GradeIdFactory gradeIdFactory) {
+	public void updateResetInformation(int studentID, String courseName, String resetState, int resetScore) {
 		EntityManager em = emf.createEntityManager();
 		Grade grade = checkGrade(studentID, courseName).get(0);
 		EntityTransaction et = em.getTransaction();

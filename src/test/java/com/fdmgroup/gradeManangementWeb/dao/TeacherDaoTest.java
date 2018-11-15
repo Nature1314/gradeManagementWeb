@@ -1,4 +1,4 @@
-package com.fdmgroup.gradeManangementWeb;
+package com.fdmgroup.gradeManangementWeb.dao;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -10,6 +10,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -59,17 +61,6 @@ public class TeacherDaoTest {
 		verify(mockEt).commit();
 		verify(mockEm).close();
 	}
-/*
-	@Test
-	public void test_addItem_withoutMock() {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("grade_jpa");
-		Teacher teacher = new Teacher("jimmy","Zhou","123");
-		TeacherDao sDao = new TeacherDao(emf);
-		sDao.addItem(teacher);
-		Teacher jimmy = sDao.searchTeacher(1);
-		assertTrue(jimmy != null);
-	}
-*/
 	
 	@Test
 	public void test_getPassword() {
@@ -84,21 +75,12 @@ public class TeacherDaoTest {
 		verify(mockEm).find(Teacher.class, 1);
 		verify(mockEm).close();		
 	}
-/**	
-	@Test
-	public void test_getPassword_without_mock() {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("grade_jpa");
-		TeacherDao sDao = new TeacherDao(emf);
-		int result = sDao.getPassword(1);
-		int expect = 123;
-		assertEquals(expect,result);
-	}
-*/	
+	
 	@Test
 	public void test_updatePassword() {
 	
 		
-		Teacher teacher = new Teacher("aa","bb","123");
+		Teacher teacher =Mockito.spy( new Teacher("aa","bb","123"));
 
 		when(mockEm.find(Teacher.class, 1)).thenReturn(teacher);
 		
@@ -108,19 +90,10 @@ public class TeacherDaoTest {
 		verify(mockEm).getTransaction();
 		verify(mockEt).begin();
 		verify(mockEt).commit();
+		verify(teacher).setPassword("000");
 		verify(mockEm).close();		
 	}
-/**	
-	@Test
-	public void test_updatePassword_without_mock() {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("grade_jpa");
-		TeacherDao sDao = new TeacherDao(emf);
-		sDao.updatePassword(1, 111);
-		int result = sDao.getPassword(1);
-		int expect = 111;
-		assertEquals(expect,result);
-	}
-*/	
+
 	@Test
 	public void test_updateName() {
 		
@@ -138,4 +111,77 @@ public class TeacherDaoTest {
 		verify(mockEt).commit();
 		verify(mockEm).close();
 	}
+	
+	@Test
+	public void test_update_status() {
+		Teacher teacher = Mockito.spy(new Teacher("aa","bb","123"));
+
+		when(mockEm.find(Teacher.class, 1)).thenReturn(teacher);
+		
+		sDao.updateState(1, "leaving");
+		verify(mockEmf).createEntityManager();
+		verify(mockEm).find(Teacher.class, 1);
+		verify(mockEm).getTransaction();
+		verify(mockEt).begin();
+		verify(teacher).setStateOfTeacher("leaving");
+		verify(mockEt).commit();
+		verify(mockEm).close();		
+	}
+	
+	@Test
+	public void test_searchByID() {
+		Teacher teacher = new Teacher("aa","bb","123");
+
+		when(mockEm.find(Teacher.class, 1)).thenReturn(teacher);
+		
+		sDao.searchTeacher(1);
+		
+		verify(mockEmf).createEntityManager();
+		verify(mockEm).find(Teacher.class, 1);
+		verify(mockEm).close();		
+	}
+	
+	@Test
+	public void test_searchByFullName() {
+		String firstName = "first";
+		String lastName ="last";
+
+		TypedQuery mockQuery =  mock(TypedQuery.class);
+		when(mockEm.createQuery("SELECT s FROM Teacher s WHERE s.firstName = :firstName AND s.lastName = :lastName ", 
+					Teacher.class)).thenReturn(mockQuery);
+		sDao.searchTeacher(firstName, lastName);
+		verify(mockEm).createQuery("SELECT s FROM Teacher s WHERE s.firstName = :firstName AND s.lastName = :lastName ", 
+				Teacher.class);
+		verify(mockQuery).setParameter("firstName", firstName);
+		verify(mockQuery).setParameter("lastName", lastName);
+		verify(mockQuery).getResultList();
+	}
+	
+	@Test
+	public void test_searchByFirstName() {
+		String firstName = "first";
+		String lastName =null;
+
+		TypedQuery mockQuery =  mock(TypedQuery.class);
+		when(mockEm.createQuery("SELECT s FROM Teacher s WHERE s.firstName = :firstName ",Teacher.class)).thenReturn(mockQuery);
+		sDao.searchTeacher(firstName, lastName);
+		verify(mockEm).createQuery("SELECT s FROM Teacher s WHERE s.firstName = :firstName ", Teacher.class);
+		verify(mockQuery).setParameter("firstName", firstName);
+		verify(mockQuery).getResultList();
+	}
+	
+	@Test
+	public void test_searchByLastName() {
+		String firstName = null;
+		String lastName ="last";
+
+		TypedQuery mockQuery =  mock(TypedQuery.class);
+		when(mockEm.createQuery("SELECT s FROM Teacher s WHERE s.lastName = :lastName ",Teacher.class)).thenReturn(mockQuery);
+		sDao.searchTeacher(firstName, lastName);
+		verify(mockEm).createQuery("SELECT s FROM Teacher s WHERE s.lastName = :lastName ", Teacher.class);
+		verify(mockQuery).setParameter("lastName", lastName);
+		verify(mockQuery).getResultList();
+	}
+	
+	
 }

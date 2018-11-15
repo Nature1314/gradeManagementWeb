@@ -17,16 +17,16 @@ public class IndexController {
 	public String goToIndex() {
 		return "index";
 	}
-
 	
 	@RequestMapping(value = {"/", "/index"  }, method = RequestMethod.GET)
-	public String goToAdminLogin(Model model, SelectUser option ) {
+	public String goToLogin(Model model, SelectUser option ) {
 		model.addAttribute("select_user", option);
-		return "adminLogin";
+		String loginPage = option.getStatus();
+		return loginPage;
 	}
 	
 	@RequestMapping(value = { "/", "/index" },method = RequestMethod.POST )
-	public String loginAdminUser(SelectUser option) {
+	public String loginUser(SelectUser option) {
 		String user = option.getStatus();
 		if (user.equals("student")) {
 			return "studentLogin";

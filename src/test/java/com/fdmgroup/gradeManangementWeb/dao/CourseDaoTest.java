@@ -1,4 +1,4 @@
-package com.fdmgroup.gradeManangementWeb;
+package com.fdmgroup.gradeManangementWeb.dao;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
 import com.fdmgroup.gradeManagementWeb.dao.CourseDao;
 import com.fdmgroup.gradeManagementWeb.dao.StudentDao;
@@ -32,7 +33,8 @@ public class CourseDaoTest {
 
 	@Before
 	public void commonStubbing() {
-		mockEmf = mock(EntityManagerFactory.class);
+		MockitoAnnotations.initMocks(this);
+
 		mockEm = mock(EntityManager.class);
 		mockEt = mock(EntityTransaction.class);
 
@@ -52,18 +54,7 @@ public class CourseDaoTest {
 		verify(mockEt).commit();
 		verify(mockEm).close();
 	}
-/**
-	@Test
-	public void test_addItem_withoutMock() {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("grade_jpa");
-		CourseDao sDao = new CourseDao(emf);
-		Course course = new Course("Java");
-		sDao.addItem(course);
-		Course java = sDao.searchCourse("Java");
-		assertTrue(java != null);
 
-	}
-*/	
 	@Test
 	public void test_updateName() {
 		Course course = Mockito.spy(new Course("aa"));
@@ -78,14 +69,36 @@ public class CourseDaoTest {
 		verify(mockEt).commit();
 		verify(mockEm).close();
 	}
-/*	
+	
 	@Test
-	public void test_updateName_without_mock() {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("grade_jpa");
-		CourseDao sDao = new CourseDao(emf);
-		sDao.updateName("Java", "Cpp");
-		Course cpp = sDao.searchCourse("Cpp");
-		assertTrue(cpp != null);
+	public void test_updateStatus() {
+		
+		String courseName = "aa";
+		String stateOfCourse = "finish";
+		Course course = Mockito.spy(new Course(courseName));
+		when(mockEm.find(Course.class, courseName)).thenReturn(course);
+
+		sDao.updateState(courseName , "finish");
+		verify(mockEmf).createEntityManager();
+		verify(mockEm).find(Course.class, courseName);
+		verify(mockEm).getTransaction();
+		verify(mockEt).begin();
+		verify(course).setStateOfCourse(stateOfCourse);
+		verify(mockEt).commit();
+		verify(mockEm).close();
 	}
-*/
+
+	@Test
+	public void test_searchCourse() {
+		String courseName="anyCourse";
+		
+		Course course = Mockito.spy(new Course(courseName));
+		when(mockEm.find(Course.class, courseName)).thenReturn(course);
+		
+		sDao.searchCourse(courseName);
+		verify(mockEmf).createEntityManager();
+		verify(mockEm).find(Course.class, courseName);
+		verify(mockEm).close();
+		
+	}
 }
