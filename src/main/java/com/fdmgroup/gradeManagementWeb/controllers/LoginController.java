@@ -1,6 +1,5 @@
 package com.fdmgroup.gradeManagementWeb.controllers;
 
-
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
@@ -16,72 +15,68 @@ import com.fdmgroup.gradeManagementWeb.entities.Administrator;
 import com.fdmgroup.gradeManagementWeb.entities.Teacher;
 import com.fdmgroup.gradeManagementWeb.other.PersonFactory;
 
-
-
 @Controller
 public class LoginController {
-	
-	@Resource(name="studentBean")
+
+	@Resource(name = "studentBean")
 	private StudentDao sDao;
-	@Resource(name="teacherBean")
+	@Resource(name = "teacherBean")
 	private TeacherDao tDao;
-	@Resource(name="adminBean")
+	@Resource(name = "adminBean")
 	private AdministratorDao aDao;
-	
-	
+
 	@RequestMapping(value = { "/studentlogin", "/studentLogin" }, method = RequestMethod.GET)
 	public String goToStudentLogin(Model model, PersonFactory factory) {
 
 		model.addAttribute("student_login_user", factory.getStudent());
 		return "studentLogin";
 	}
-	
-	@RequestMapping(value = { "/studentlogin", "/studentLogin" },method = RequestMethod.POST )
+
+	@RequestMapping(value = { "/studentlogin", "/studentLogin" }, method = RequestMethod.POST)
 	public String loginStudentUser(Student student) {
-		int idNumber =student.getIdNumber();
+		int idNumber = student.getIdNumber();
 		Student studentInData = sDao.searchStudent(idNumber);
-		if(student.getPassword().equals(studentInData.getPassword()))
+		if (student.getPassword().equals(studentInData.getPassword()))
 			return "student";
 		else
 			return "block";
 	}
-	
+
 	@RequestMapping(value = { "/teacherlogin", "/teacherLogin" }, method = RequestMethod.GET)
 	public String goToTeacherLogin(Model model, PersonFactory factory) {
 
 		model.addAttribute("teacher_login_user", factory.getTeacher());
 		return "teacherLogin";
 	}
-	
-	@RequestMapping(value = { "/teacherlogin", "/teacherLogin" },method = RequestMethod.POST )
+
+	@RequestMapping(value = { "/teacherlogin", "/teacherLogin" }, method = RequestMethod.POST)
 	public String loginTeacherUser(Teacher teacher) {
-		int idNumber =teacher.getIdNumber();
+		int idNumber = teacher.getIdNumber();
 		Teacher teacherInData = tDao.searchTeacher(idNumber);
 		if (teacher.getPassword().equals(teacherInData.getPassword())) {
 			return "teacher";
-		}else {
+		} else {
 			return "block";
 		}
 	}
-	
-	@RequestMapping(value = {"/adminlogin", "/adminLogin" }, method = RequestMethod.GET)
-	public String goToAdminLogin(Model model, PersonFactory factory) {
 
+	@RequestMapping(value = { "/adminlogin", "/adminLogin" }, method = RequestMethod.GET)
+	public String goToAdminLogin(Model model, PersonFactory factory) {
+		System.out.println(factory.getAdministrator());
 		model.addAttribute("admin_login_user", factory.getAdministrator());
 		return "adminLogin";
 	}
-	
-	@RequestMapping(value = { "/adminlogin", "/adminLogin" },method = RequestMethod.POST )
+
+	@RequestMapping(value = { "/adminlogin", "/adminLogin" }, method = RequestMethod.POST)
 	public String loginAdminUser(Administrator admin) {
-		int idNumber =admin.getIdNumber();
+		int idNumber = admin.getIdNumber();
 		Administrator adminInData = aDao.searchAdmin(idNumber);
 		String password = admin.getPassword();
 		if (password.equals(adminInData.getPassword())) {
 			return "administrator";
-		}else {
+		} else {
 			return "block";
 		}
 	}
-	
 
 }

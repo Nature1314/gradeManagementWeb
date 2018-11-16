@@ -25,7 +25,8 @@
 				<option value="studentLogin">Student</option>
 				<option value="teacherLogin">Teacher</option>
 				<option value="adminLogin">IT Administrator</option>
-			</select> <input type="submit" value="Click">
+			</select>
+			<input type="submit" value="Click">
 		</sf:form>
 	</div>
 
