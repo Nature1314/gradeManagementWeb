@@ -1,7 +1,5 @@
 package com.fdmgroup.gradeManagementWeb.controllers;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,13 +16,12 @@ public class IndexController {
 		return "index";
 	}
 	
-	@RequestMapping(value = {"/", "/index"  }, method = RequestMethod.GET)
 	public String goToLogin(Model model, SelectUser option ) {
 		model.addAttribute("select_user", option);
 		String loginPage = option.getStatus();
 		return loginPage;
 	}
-	
+
 	@RequestMapping(value = { "/", "/index" },method = RequestMethod.POST )
 	public String loginUser(SelectUser option) {
 		String user = option.getStatus();
