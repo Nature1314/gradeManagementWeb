@@ -105,20 +105,21 @@ public class GradeDaoTest {
 		String courseName = "Java";
 		int studentId = 0;
 		int newScore = 12;
+		String jpql = "SELECT s FROM Grade s WHERE s.id.student_ID = :studentID AND s.id.course_name = :courseName ";
+		int studentID = 1;
+
+		TypedQuery<Grade> mockQuery = mock(TypedQuery.class);	
 		List<Grade> mockGradeList = mock(List.class); 
+		when(mockEm.createQuery(jpql, Grade.class)).thenReturn(mockQuery);
+		when(mockQuery.getResultList()).thenReturn(mockGradeList);
+		when(mockGradeList.get(studentId)).thenReturn(mockGrade);
 		
-		GradeDao mockDao = Mockito.spy(new GradeDao());
-		
-		Mockito.doReturn(mockGradeList).when(mockDao).checkGrade(studentId, courseName); 
-		//when(mockDao.checkGrade(studentId, courseName)).thenReturn(mockGradeList);
-		when(mockGradeList.get(0)).thenReturn(mockGrade);
-		
-		mockDao.updateGrade(studentId, courseName, newScore);
+		gDao.updateGrade(studentId, courseName, newScore);
 
 
 		verify(mockEmf).createEntityManager();
 		verify(mockFactory).getGradeId();
-		verify(mockDao).checkGrade(studentId, courseName).get(0);
+		verify(gDao).checkGrade(studentId, courseName).get(0);
 		verify(mockEm).getTransaction();
 		verify(mockEt).begin();
 		verify(mockGrade).setScore(newScore);
@@ -126,25 +127,26 @@ public class GradeDaoTest {
 		verify(mockEm).close();
 	}
 	
+	@Test
 	public void test_updateResetInformation() {
 
 		String courseName = "Java";
 		int studentId = 0;
 		String resetState= "Resulted"; 
 		int resetScore = 60;
+		String jpql = "SELECT s FROM Grade s WHERE s.id.student_ID = :studentID AND s.id.course_name = :courseName ";
 		List<Grade> mockGradeList = mock(List.class); 
 		
-		GradeDao mockDao = Mockito.spy(new GradeDao());
+		TypedQuery<Grade> mockQuery = mock(TypedQuery.class);	
+		when(mockEm.createQuery(jpql, Grade.class)).thenReturn(mockQuery);
+		when(mockQuery.getResultList()).thenReturn(mockGradeList);
+		when(mockGradeList.get(studentId)).thenReturn(mockGrade);
 		
-		Mockito.doReturn(mockGradeList).when(mockDao).checkGrade(studentId, courseName); 
-		//when(mockDao.checkGrade(studentId, courseName)).thenReturn(mockGradeList);
-		when(mockGradeList.get(0)).thenReturn(mockGrade);
-		
-		mockDao.updateResetInformation(studentId, courseName, resetState, resetScore);
+		gDao.updateResetInformation(studentId, courseName, resetState, resetScore);
 		
 		verify(mockEmf).createEntityManager();
 		verify(mockFactory).getGradeId();
-		verify(mockDao).checkGrade(studentId, courseName).get(0);
+		verify(gDao).checkGrade(studentId, courseName).get(0);
 		verify(mockEm).getTransaction();
 		verify(mockEt).begin();
 		verify(mockGrade).setResetState(resetState);
