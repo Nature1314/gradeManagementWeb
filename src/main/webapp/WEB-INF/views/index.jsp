@@ -32,6 +32,8 @@
 
 	<img align="middle" alt="background"
 		src="https://upload.wikimedia.org/wikipedia/commons/e/ec/Dartmouth_College_campus_2007-10-20_09.JPG"
-		class="img">
+		class="img"
+		height = "400"
+		width = "800">
 </body>
 </html>
