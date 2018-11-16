@@ -25,9 +25,9 @@ public class IndexController {
 	@RequestMapping(value = { "/", "/index" },method = RequestMethod.POST )
 	public String loginUser(SelectUser option) {
 		String user = option.getStatus();
-		if (user.equals("student")) {
+		if (user.equals("studentLogin")) {
 			return "studentLogin";
-		} else if (user.equals("teacher")) {
+		} else if (user.equals("teacherLogin")) {
 			return "teacherLogin";
 		} else {
 			return "adminLogin";
